@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{{ name }}'s Resume{% endblock %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    
+    <div class="alert alert-info d-flex align-items-center" role="alert">
+    <div>
+        Try the new AI interview coach!
+        <a class="btn btn-primary btn-sm ms-2" href="{% url 'chatui' user_id=user_id %}">
+            Help me practice for an interview
+        </a>
+    </div>
+</div>
+    <h2 class="mb-4">{{ name }}'s Resume</h2>
+
+    <div class="mb-4">
+      {% include "partials/_bio_section.html" %}
+    </div>
+
+    <p><strong><i class="bi bi-phone"></i> Mobile:</strong> {{ mobileno }}</p>
+
+    <h3 class="mt-4"><i class="bi bi-mortarboard"></i> Qualifications</h3>
+    <ul class="list-group list-group-flush mb-4">
+      {% for qualification in qualifications %}
+        <li class="list-group-item">
+         {{ qualification.title }} from {{ qualification.institution }} ({{ qualification.year }})
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No qualifications found.</li>
+      {% endfor %}
+    </ul>
+
+    <h3><i class="bi bi-briefcase"></i> Work Experience</h3>
+    <ul class="list-group list-group-flush">
+     {% for job in work_experience %}
+  <li class="list-group-item">
+    <strong>{{ job.position }}</strong> at {{ job.company }}
+
+    {% if job.description %}
+      <br>{{ job.description }}
+    {% endif %}
+  </li>
+{% empty %}
+  <li class="list-group-item text-muted">No work experience found.</li>
+{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
+
+   

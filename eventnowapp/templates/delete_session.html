@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Session{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4">
+                <h2 class="mb-3">Delete Session</h2>
+
+                <p>Are you sure you want to delete this session?</p>
+
+                <div class="alert alert-warning">
+                    <strong>{{ session.title }}</strong><br>
+                    Speaker: {{ session.speaker }}<br>
+                    Time: {{ session.start_time }} - {{ session.end_time }}
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete Session</button>
+                    <a href="{% url 'detail' event.id %}" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

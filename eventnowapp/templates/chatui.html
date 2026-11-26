@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Coach - {{ name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white d-flex align-items-center">
+            <i class="bi bi-chat-dots-fill me-2 fs-5"></i>
+            <div>
+              <h5 class="mb-0">EventNow Assistant</h5>
+              <small>Ask about events, sessions, speakers and recommendations</small>
+            </div>
+          </div>
+          <div class="card-body" style="height: 450px; overflow-y: auto;" id="chat-container">
+            <div id="chat-messages">
+              <!-- Messages appear here via HTMX -->
+            </div>
+            <div id="chat-spinner" class="htmx-indicator text-center py-3">
+              <span class="spinner-border spinner-border-sm" role="status"></span>
+              <span class="text-muted">Thinking...</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <form hx-post="{% url 'chatbot' %}"
+                  hx-target="#chat-messages"
+                  hx-swap="beforeend"
+                  hx-indicator="#chat-spinner"
+                  hx-on::after-request="this.reset(); document.getElementById('chat-container').scrollTop = document.getElementById('chat-container').scrollHeight;">
+              <div class="input-group align-items-stretch">
+                <textarea name="message" class="form-control" rows="2"
+                          placeholder="Ask me about events, sessions, speakers, dates or locations..." required
+                          style="resize: none; border-right: 0;"></textarea>
+                <button type="submit" class="btn btn-primary" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                  <i class="bi bi-send-fill"></i> Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="mt-3">
+          <a href="{% url 'myresume' %}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left"></i> Back to Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Load initial bot greeting on page load -->
+<div hx-post="{% url 'chatbot_init' %}"
+     hx-trigger="load"
+     hx-target="#chat-messages"
+     hx-swap="beforeend"
+     hx-indicator="#chat-spinner"
+     hx-vals='{"user_id": "{{ user_id }}"}'>
+</div>
+{% endblock %}
