@@ -1,0 +1,7 @@
+<div class="d-flex {% if is_user %}justify-content-end{% else %}justify-content-start{% endif %} mb-3">
+  <div class="card {% if is_user %}bg-primary text-white{% else %}bg-light{% endif %}" style="max-width: 75%;">
+    <div class="card-body py-2 px-3">
+      <div class="mb-0">{{ message }}</div>
+    </div>
+  </div>
+</div>

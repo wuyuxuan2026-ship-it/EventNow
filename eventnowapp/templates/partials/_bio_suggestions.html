@@ -1,0 +1,17 @@
+<div class="list-group">
+  {% for suggestion in suggestions %}
+    <div class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="me-3 flex-grow-1">{{ suggestion }}</div>
+      <form hx-post="{% url 'select_bio' user_id=user_id %}"
+            hx-target="#bio-section"
+            hx-swap="outerHTML">
+        <input type="hidden" name="newbio" value="{{ suggestion }}">
+        <button type="submit" class="btn btn-success btn-sm text-nowrap">
+          <i class="bi bi-check-lg"></i> Select
+        </button>
+      </form>
+    </div>
+  {% empty %}
+    <div class="list-group-item text-danger">No suggestions could be generated. Please try again.</div>
+  {% endfor %}
+</div>
