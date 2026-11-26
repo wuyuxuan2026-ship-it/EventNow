@@ -18,19 +18,22 @@
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="{% url 'home' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <img src="https://images.unsplash.com/photo-1778148974394-5f0c5fe427f0?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="ICON" class="img-fluid rounded shadow" style="width: 60px; height:auto;">
+                <img src="{% if public_demo %}{% static 'main/ICON.png' %}{% else %}https://images.unsplash.com/photo-1778148974394-5f0c5fe427f0?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" alt="ICON" class="img-fluid rounded shadow" style="width: 60px; height:auto;">
                 <span class="fs-4 fw-bold">&nbsp;EventNow</span>
             </a>
 
             <ul class="nav nav-pills">
                 <li class="nav-item"><a href="{% url 'home' %}" class="nav-link active" aria-current="page">Home</a></li>
                 <li class="nav-item"><a href="{% url 'events' %}" class="nav-link">Events</a></li>
-                <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
-                <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
-                <li class="nav-item"><a href="{% url 'dashboard' %}" class="nav-link">Status</a></li>
-                <li class="nav-item"><a href="{% url 'myresume' %}" class="nav-link">Resume</a></li>
+                {% if not public_demo %}<li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>{% endif %}
+                {% if not public_demo %}<li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>{% endif %}
+                {% if not public_demo %}<li class="nav-item"><a href="{% url 'dashboard' %}" class="nav-link">Status</a></li>{% endif %}
+                {% if not public_demo %}<li class="nav-item"><a href="{% url 'myresume' %}" class="nav-link">Resume</a></li>{% endif %}
             </ul>
         </header>
+        {% if public_demo %}
+        <p class="text-muted small mb-4">Read-only demo with sample events. Browse an event to view its sessions.</p>
+        {% endif %}
     </div>
 
     <!-- Hero Section -->
@@ -43,10 +46,10 @@
                         <p class="lead">
                         </p>
                         <a href="{% url 'events' %}" class="btn btn-primary btn-lg me-2">Browse Events</a>
-                        <a href="{% url 'create_event'%}" class="btn btn-outline-secondary btn-lg">Create Event</a>
+                        {% if not public_demo %}<a href="{% url 'create_event'%}" class="btn btn-outline-secondary btn-lg">Create Event</a>{% endif %}
                     </div>
                     <div class="col-lg-6 text-center">
-                        <img src="https://images.unsplash.com/photo-1778312295692-caaf11f40d1a?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="EventNow Screenshot" class="img-fluid rounded shadow">
+                        <img src="{% if public_demo %}{% static 'main/picture1.png' %}{% else %}https://images.unsplash.com/photo-1778312295692-caaf11f40d1a?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" alt="EventNow Screenshot" class="img-fluid rounded shadow">
                     </div>
                 </div>
             </div>
@@ -64,7 +67,7 @@
                     <!-- Card 1 -->
                     <div class="col">
                         <div class="card shadow-sm h-100 fade-up">
-                            <img src="https://images.unsplash.com/photo-1778312284973-0fdd90326cad?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Swim Party" class="img-fluid rounded shadow">
+                            <img src="{% if public_demo %}{% static 'main/picture_swim.png' %}{% else %}https://images.unsplash.com/photo-1778312284973-0fdd90326cad?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" alt="Swim Party" class="img-fluid rounded shadow">
                             <div class="card-body">
                                 <h5 class="card-title">pool party</h5>
                                 <p class="card-text">Invite your friends to join the pool party event!</p>
@@ -79,7 +82,7 @@
                     <!-- Card 2 -->
                     <div class="col">
                         <div class="card shadow-sm h-100 fade-up">
-                            <img src="https://images.unsplash.com/photo-1778312313893-b31d71fd6e5e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Networking Night">
+                            <img src="{% if public_demo %}{% static 'main/picture_game.png' %}{% else %}https://images.unsplash.com/photo-1778312313893-b31d71fd6e5e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" class="card-img-top" alt="Networking Night">
                             <div class="card-body">
                                 <h5 class="card-title">Cosplay</h5>
                                 <p class="card-text">Have an exciting and elaborate cosplay with your friends!</p>
@@ -94,7 +97,7 @@
                     <!-- Card 3 -->
                     <div class="col">
                         <div class="card shadow-sm h-100 fade-up">
-                            <img src="https://images.unsplash.com/photo-1778312115334-76870340892f?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="AI Workshop">
+                            <img src="{% if public_demo %}{% static 'main/picture_fire.png' %}{% else %}https://images.unsplash.com/photo-1778312115334-76870340892f?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" class="card-img-top" alt="AI Workshop">
                             <div class="card-body">
                                 <h5 class="card-title">Fire-side gathering</h5>
                                 <p class="card-text">Is there anything better than singing beside the fire with friends?</p>
@@ -108,7 +111,7 @@
                     <!-- Card 4 -->
                     <div class="col">
                         <div class="card shadow-sm h-100 fade-up">
-                            <img src="https://images.unsplash.com/photo-1778312330812-d992c4ccbd6c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Business Seminar">
+                            <img src="{% if public_demo %}{% static 'main/picture_sing.png' %}{% else %}https://images.unsplash.com/photo-1778312330812-d992c4ccbd6c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" class="card-img-top" alt="Business Seminar">
                             <div class="card-body">
                                 <h5 class="card-title">Opear</h5>
                                 <p class="card-text">Hundreds of operas are waiting for you to enjoy.</p>
@@ -123,7 +126,7 @@
                     <!-- Card 5 -->
                     <div class="col">
                         <div class="card shadow-sm h-100 fade-up">
-                            <img src="https://images.unsplash.com/photo-1778312323409-54666139fc7f?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Design Meetup">
+                            <img src="{% if public_demo %}{% static 'main/pucture_cos.png' %}{% else %}https://images.unsplash.com/photo-1778312323409-54666139fc7f?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" class="card-img-top" alt="Design Meetup">
                             <div class="card-body">
                                 <h5 class="card-title">Ghost House Adventure</h5>
                                 <p class="card-text">Call your friends and embark on an extremely thrilling adventure together!</p>
@@ -138,7 +141,7 @@
                     <!-- Card 6 -->
                     <div class="col">
                         <div class="card shadow-sm h-100 fade-up">
-                            <img src="https://images.unsplash.com/photo-1778312330812-d992c4ccbd6c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Online Webinar">
+                            <img src="{% if public_demo %}{% static 'main/picture_sing.png' %}{% else %}https://images.unsplash.com/photo-1778312330812-d992c4ccbd6c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D{% endif %}" class="card-img-top" alt="Online Webinar">
                             <div class="card-body">
                                 <h5 class="card-title">Mysterious lobby</h5>
                                 <p class="card-text">More surprises await your participation!</p>
@@ -160,9 +163,9 @@
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
                 <li class="nav-item"><a href="{% url 'events' %}" class="nav-link px-2 text-body-secondary">Events</a></li>
-                <li class="nav-item"><a href="{% url 'login' %}" class="nav-link px-2 text-body-secondary">Login</a></li>
-                <li class="nav-item"><a href="{% url 'register' %}" class="nav-link px-2 text-body-secondary">Register</a></li>
-                <li class="nav-item"><a href="{% url 'dashboard' %}" class="nav-link px-2 text-body-secondary">Status</a></li>
+                {% if not public_demo %}<li class="nav-item"><a href="{% url 'login' %}" class="nav-link px-2 text-body-secondary">Login</a></li>{% endif %}
+                {% if not public_demo %}<li class="nav-item"><a href="{% url 'register' %}" class="nav-link px-2 text-body-secondary">Register</a></li>{% endif %}
+                {% if not public_demo %}<li class="nav-item"><a href="{% url 'dashboard' %}" class="nav-link px-2 text-body-secondary">Status</a></li>{% endif %}
             </ul>
             <p class="text-center text-body-secondary">© 2026 EventNow | INFS3202 Project</p>
         </footer>
